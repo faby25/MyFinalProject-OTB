@@ -4,18 +4,10 @@
     <BreezeValidationErrors class="mb-4" />
 
     <form @submit.prevent="submit">
-
-    <!-- Change THIS
-          <div>
+        <div>
             <BreezeLabel for="email" value="Email" />
             <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
-          </div>
-        -->
-        <div>
-          <BreezeLabel for="login" value="Email / Username" />
-          <BreezeInput id="login" type="text" class="mt-1 block w-full" v-model="form.login" required autofocus autocomplete="username" />
         </div>
-
 
         <div class="mt-4">
             <BreezeLabel for="password" value="Password" />
@@ -55,7 +47,7 @@ export default {
     },
 
     props: {
-        login: String,
+        email: String,
         token: String,
     },
 
@@ -63,7 +55,7 @@ export default {
         return {
             form: this.$inertia.form({
                 token: this.token,
-                login: this.login,
+                email: this.email,
                 password: '',
                 password_confirmation: '',
             })

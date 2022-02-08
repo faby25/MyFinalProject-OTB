@@ -2,10 +2,10 @@
     <Head title="Forgot Password" />
 
     <div class="mb-4 text-sm text-gray-600">
-        Forgot your password? No problem. Just let us know your email or username and we will email you a password reset link that will allow you to choose a new one.
+        Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
     </div>
 
-    <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
+    <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
         {{ status }}
     </div>
 
@@ -13,8 +13,8 @@
 
     <form @submit.prevent="submit">
         <div>
-            <BreezeLabel for="login" value="Email / Username" />
-            <BreezeInput id="login" type="text" class="block w-full mt-1" v-model="form.email" required autofocus autocomplete="username" />
+            <BreezeLabel for="email" value="Email" />
+            <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
         </div>
 
         <div class="flex items-center justify-end mt-4">
@@ -32,8 +32,10 @@ import BreezeInput from '@/Components/Input.vue'
 import BreezeLabel from '@/Components/Label.vue'
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue'
 import { Head } from '@inertiajs/inertia-vue3';
+
 export default {
     layout: BreezeGuestLayout,
+
     components: {
         BreezeButton,
         BreezeInput,
@@ -41,16 +43,19 @@ export default {
         BreezeValidationErrors,
         Head,
     },
+
     props: {
         status: String,
     },
+
     data() {
         return {
             form: this.$inertia.form({
-                login: ''
+                email: ''
             })
         }
     },
+
     methods: {
         submit() {
             this.form.post(this.route('password.email'))
