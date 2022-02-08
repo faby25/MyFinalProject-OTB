@@ -8,6 +8,38 @@ $fecha = date("Y-m-d");
 //             ->count();
 ?>
 
+<div class="card-header mt-2">
+    <div class="float-left">
+        <h1 class="h2">LECTURA: </h1>
+        <strong>Factura # </strong>{{$notice->id}}
+        <h2 class="font-bold text-xl">
+            {{ $notice->detalle ?? 'Recibo' }}
+        </h2>
+        <br>
+    </div>
+    <div class="float-right">
+
+      <form method="post" action="notice.edit.{{$notice->id}}">
+          <input type="hidden" name="visitaID" value="$notice->id"/>
+          @if ($notice->pagado)
+              <button class="btn btn-lg btn-success" type="submit">
+                <h2 class="h2">
+                  {{ "Cancelado" }}
+                </h2>
+              </button>
+          @else
+            <button class="btn btn-danger btn-sm" type="submit">
+              <h2 class="h2">
+                {{ "Pendiente" }}
+              </h2>
+            </button>
+          @endif
+      </form>
+      <strong>Fecha de vencimiento: </strong>
+      <br>{{ $notice->fechaVencimiento }}
+
+    </div>
+</div>
 
 @php
 $carbon = new \Carbon\Carbon();
@@ -17,24 +49,27 @@ $taportes=App\Models\Taporte::all();
 $tmultas=App\Models\TMulta::all();
    $subtotal = 0;
 @endphp
-<div class="row" style="margin-bottom: 2rem;">
+<div class="row" style="margin-bottom: 1rem;">
     <div class="col-sm-6">
-        <h1 class="h2">Socio:</h1>
+      <h1 class="font-semibold text-3x1">
+          {{ __('SOCIO: ') }}
+      </h1>
         {{$notice->lectura->meter->user->name}}
         {{$notice->lectura->meter->user->lastnameF}}
         {{$notice->lectura->meter->user->lastnameM}}
-        <h1 class="h2">Medidor:</h1>
+      <h1 class="font-semibold text-3x1">
+          {{ __('MEDIDOR: ') }}
+      </h1>
         {{$notice->lectura->meter->nombre }}
+        <br>
+      <strong>Fecha: </strong> {{ $notice->created_at }}
+
     </div>
     <div class="col">
-        <h1 class="h2">Lectura:</h1>
-            <strong>Fecha: </strong>
-            {{ $notice->created_at }}
-            <br>
-            <strong>Factura No.</strong>
-            {{$notice->id}}
+
     </div>
     <div class="col">
+
       <table class="table table-condensed table-bordered table-striped">
             <thead>
             <tr>
@@ -102,7 +137,7 @@ $tmultas=App\Models\TMulta::all();
             <?php$last=$tconsumo;?>
         @endforeach
         <tr>
-            <td colspan="3" class="text-right">Subtotal</td>
+            <th colspan="3" class="text-right">SUBTOTAL</th>
             <td>Bs. <?php echo number_format($subtotal, 2) ?></td>
         </tr>
     </tbody>
@@ -171,9 +206,9 @@ $tmultas=App\Models\TMulta::all();
           @endforeach
         </tr>
         <tr>
-            <td colspan="3" class="text-right">
-                <h4>Total</h4>
-            </td>
+            <th colspan="3" class="text-right">
+                <h4>TOTAL</h4>
+            </th>
             <td>
                 <h4>Bs.<?php echo number_format($subtotal, 2) ?></h4>
             </td>

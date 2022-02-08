@@ -17,31 +17,20 @@
     </x-slot>
 
     <div class="card">
-        <div class="card-header">
-            <div class="float-left">
-              <h2 class="font-bold text-xl">
-                    {{ $notice->detalle ?? __('Recibo') }}
-              </h2>
-            </div>
+
+        <div class="card-body">
+            @include('notices.recibo')
+
             <div class="float-right">
+                <a href="create-pdf-file" class="btn btn-primary">Imprimir</a>
                 <a href="{{ URL::previous() }}" class="btn btn-primary">Volver</a>
             </div>
         </div>
-        <div class="card-body">
-
-          @include('notices.recibo')
-
-
-        <div class="float-right">
-            {{-- <form class="card-blue" action="create-pdf-file" method="GET" role="form" enctype="multipart/form-data">
-                @csrf --}}
-
-                {{-- <div class="box-footer mt20">
-                    <button type="submit" class="btn btn-primary pull-right">Imprimir</button>
-                </div> --}}
-            <a href="create-pdf-file" class="btn btn-primary">Imprimir</a>
-
-        {{-- </form> --}}
-          </div>
-        </div>
 </x-app-layout>
+
+    {{-- <form class="card-blue" action="create-pdf-file" method="GET" role="form" enctype="multipart/form-data">
+    @csrf --}}
+    {{-- <div class="box-footer mt20">
+        <button type="submit" class="btn btn-primary pull-right">Imprimir</button>
+    </div> --}}
+    {{-- </form> --}}

@@ -52,11 +52,11 @@
                             <td value="{{$notice->id}}">{{ $notice->lectura->meter->nombre }}</td>
                             <td>{{ $notice->created_at }}</td>
                             <td>{{ $notice->lectura->consumo}}</td>
-                            <td>{{-- {{ $notice->pagado }} --}}
+                            <td>
                                 @if ($notice->pagado)
-                                {{ "pagado" }}
+                                {{ "Cancelado" }}
                                 @else
-                                {{ "pendiente" }}
+                                {{ "Pendiente" }}
                                 @endif
                             </td>
                             {{-- {{ $post->thumbnail }} --}}

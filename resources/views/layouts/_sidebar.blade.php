@@ -42,7 +42,7 @@
         </li>
         @else
         <li class="nav-item">
-            <a class="nav-link  " href="user.notices">
+            <a class="nav-link  " href="notices.recibo"><?php // TODO:  ?>
                 <i class="far fa-fw fa-bell"></i>
                 <p>NOTIFICACIONES<span class="badge badge-success right">4</span></p>
             </a>

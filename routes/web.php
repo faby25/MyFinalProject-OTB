@@ -43,9 +43,9 @@ Route::get('create-pdf-file', [PDFController::class, 'index']);
 //Dashboard
 Route::get('/dashboard', function () {
   if (Auth::user()->hasAnyRole('Admin', 'Cajero','Lecturador')) {
-    return view('admins.dashboard');
+    return view('admins-dashboard');
   } else {
-    return view('socios.dashboard');
+    return view('socios-dashboard');
   }
 }) ->middleware(['auth'])->name('dashboard');
 
@@ -72,8 +72,6 @@ Route::get('/meters={meter:id}',function(Meter $meter){
 })->name('category');
 
 //vistas-ADMIN
-// Route::post('admin/posts',[PostController::class,'store']);//->middleware('admin');
-
 Route::resource('lectura',LecturaController::class);
 // Route::get('lecturas.create.{meter:id}',[LecturaController::class,'create']);
 // Route::post('lecturas',[LecturaController::class,'store']);

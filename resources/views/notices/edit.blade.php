@@ -1,31 +1,44 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-bold text-xl">
+            {{ __('Crear') }}
+        </h2>
+    </x-slot>
 
-@section('template_title')
-    Update Notice
-@endsection
+    <section class="container">
+        @includeif('partials.errors')
+        <div class="card ">
+            <div class="card-header">
+                <span class="card-title">Create Notice</span>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ route('notices.update', $notice->id) }}" role="form" enctype="multipart/form-data">
+                    {{ method_field('PATCH') }}
+                    @csrf
 
-@section('content')
-    <section class="content container-fluid">
-        <div class="">
-            <div class="col-md-12">
+                    @include('notice.form')
 
-                @includeif('partials.errors')
-
-                <div class="card card-default">
-                    <div class="card-header">
-                        <span class="card-title">Update Notice</span>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('notices.update', $notice->id) }}"  role="form" enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
-                            @csrf
-
-                            @include('notice.form')
-
-                        </form>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </section>
-@endsection
+</x-app-layout>
+
+
+
+
+
+{{-- Define the route
+
+Route::post('visitas', 'VistaController@update');
+
+Write the function the controller
+
+public function update(Request $request)
+{
+    $visita = Visita::find($request->visitaID);
+    $visita->confirmacao = 1;
+    $visita->update();
+
+    return redirect()->back()->with('message', 'visita updated');
+} --}}

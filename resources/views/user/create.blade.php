@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-bold text-xl">
-            
+
         </h2>
     </x-slot>
 
@@ -9,7 +9,7 @@
         <div class="card-header">{{ __('Registro de Socio') }}</div>
             <form method="POST" action="user">
                 @csrf
-                <div class="card-body">    
+                <div class="card-body">
                     <div class="row mb-3">
                         <label for="ci" class="col-md-4 col-form-label text-md-end">{{ __('Carnet de Identidad ::') }}</label>
 
@@ -20,7 +20,7 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                        </div>       
+                        </div>
                     </div>
                     <div class="row mb-3">
                         <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nombre ::') }}</label>
@@ -121,7 +121,7 @@
                             <a href="user" class="btn btn-secondary">Cancelar</a>
                         </div>
                     </div>
-                </div>        
+                </div>
             </form>
         </div>
     </div>
