@@ -20,7 +20,7 @@ class TaporteController extends Controller
     {
         $taportes = Taporte::paginate();
 
-        return view('taporte.index', compact('taportes'))
+        return view('taportes.index', compact('taportes'))
             ->with('i', (request()->input('page', 1) - 1) * $taportes->perPage());
     }
 
@@ -32,7 +32,7 @@ class TaporteController extends Controller
     public function create()
     {
         $taporte = new Taporte();
-        return view('taporte.create', compact('taporte'));
+        return view('taportes.create', compact('taporte'));
     }
 
     /**
@@ -61,7 +61,7 @@ class TaporteController extends Controller
     {
         $taporte = Taporte::find($id);
 
-        return view('taporte.show', compact('taporte'));
+        return view('taportes.show', compact('taporte'));
     }
 
     /**
@@ -74,7 +74,7 @@ class TaporteController extends Controller
     {
         $taporte = Taporte::find($id);
 
-        return view('taporte.edit', compact('taporte'));
+        return view('taportes.edit', compact('taporte'));
     }
 
     /**

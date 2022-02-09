@@ -5,7 +5,7 @@
             {{'Buzon de Reclamos y/o Sugerencias que solicitan atención' }}
         </h2>
       </div>
-      <a class="btn btn-primary float-right" href="{{ url('posts') }}"> Volver</a>
+      <a class="btn btn-primary float-right" href="{{ url('dashboard') }}"> Volver</a>
 
   </x-slot>
 

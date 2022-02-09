@@ -6,16 +6,14 @@
               </h2>
           </div>
       </x-slot>
-
+      @php
+      $meters = App\Models\Meter::all();
+      @endphp
       <div class="card">
-          @if (Auth::user()->hasAnyRole('Admin', 'Cajero','Lecturador'))
-            @php
-            $meters = App\Models\Meter::all();
-            @endphp
-          @else
-            @php
-            $meters = App\Models\Meter::where('user_id', auth()->id())->get();
-            @endphp
+          @if (!Auth::user()->is_admin)
+              @php
+              $meters = App\Models\Meter::where('user_id', auth()->id())->get();
+              @endphp
           @endif
           <div class="card-header">
               <div class="form-group col-sm-6">
@@ -60,7 +58,7 @@
                                 @endif
                             </td>
                             {{-- {{ $post->thumbnail }} --}}
-                            {{-- <img src="{{  asset('./storage/'.$post->thumbnail) }}" alt="" class="rounded-xl" width="100"> --}}
+                            <img src="{{  asset('./storage'.$post->thumbnail) }}" alt="" class="rounded-xl" width="100">
                             {{-- {{$img = Image::make($path)->resize($width, $height)->save($path)}} --}}
                             <td>
                                 <a class="btn btn-sm btn-primary " href="notice.show.{{$notice->id}}"><i class="fa fa-fw fa-eye"></i>Recibo</a>

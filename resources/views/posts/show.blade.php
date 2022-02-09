@@ -8,7 +8,7 @@
 
      <div class="col float-right">
 
-       <a class="btn btn-primary float-right" href="{{ url('posts') }}"> Volver</a>
+       <a class="btn btn-primary float-right" href="{{ url('dashboard') }}"> Volver</a>
 
     </div>
   </x-slot>

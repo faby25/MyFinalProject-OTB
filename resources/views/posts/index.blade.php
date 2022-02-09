@@ -59,7 +59,8 @@
                         </td>
                         <td>
                           {{-- {{ $post->thumbnail }} --}}
-                          <img src="{{  asset('./storage/'.$post->thumbnail) }}" alt="" class="rounded-xl" width="100">
+                          {{-- C:\xampp\htdocs\MyFinalProject-OTB\storage\app\public\thumbnails\dHNlP3IfNB7yTV9CMQe184TdfYRCSYPI0XSPcL3a.webp --}}
+                          <img src="../storage/{{$post->thumbnail}}" alt="" class="rounded-xl" width="100">
                           {{-- {{$img = Image::make($path)->resize($width, $height)->save($path)}} --}}
                         </td>
                         <td>

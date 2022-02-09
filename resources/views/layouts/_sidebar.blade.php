@@ -6,7 +6,7 @@
         </span>
     </x-nav-link>
     <ul class="pt-3 nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu">
-        @if (Auth::user()->hasAnyRole('SuperAdmin','Admin', 'Cajero','Lecturador','SuperAdmin'))
+        @if (Auth::user()->hasAnyRole('SuperAdmin','Admin', 'Cajero','Lecturador'))
         <li class="nav-item has-treeview ">
             <a class="nav-link  " href="dashboard">
                 <i class="fas fa-fw fa-share "></i>
@@ -19,7 +19,7 @@
                         <p>Buzon sin atender</p>
                     </a>
                 </li>
-                <li class="nav-item has-treeview ">
+                {{-- <li class="nav-item has-treeview ">
                     <a class="nav-link  " href="">
                         <i class="far fa-fw fa-circle "></i>
                         <p>Lista de pagos<i class="fas fa-angle-left right"></i></p>
@@ -37,14 +37,14 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
             </ul>
         </li>
         @else
         <li class="nav-item">
             <a class="nav-link  " href="dashboard"><?php // TODO:  ?>
                 <i class="far fa-fw fa-bell"></i>
-                <p>NOTIFICACIONES<span class="badge badge-success right">4</span></p>
+                <p>NOTIFICACIONES<span class="badge badge-success right"></span></p>
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
@@ -63,7 +63,7 @@
 
         </li>
         @endif
-        <li class="nav-header ">CONFIGURACIONES</li>
+        {{-- <li class="nav-header ">CONFIGURACIONES</li>
         <li class="nav-item">
             <a class="nav-link  " href="user.show">
                 <i class="fas fa-fw fa-user fa fa-user "></i>
@@ -75,7 +75,7 @@
                 <i class="fas fa-fw fa-lock "></i>
                 <p>Cambiar Contraseña</p>
             </a>
-        </li>
+        </li> --}}
 
         <li class="nav-header ">OPCIONES</li>
         <li @can('user.index')
@@ -85,24 +85,35 @@
         </a>
         @endcan
         </li>
-        <li class="nav-item">
-            <a class="nav-link  " href="tconsumo">
-                <i class="fa fa-circle-dollar-to-slot"></i>
-                <p>Tarifas consumos</p>
+
+        <li class="nav-item has-treeview">
+            <a class="nav-link  " href=""><?php // TODO:  ?>
+                <i class="fa fa-circle-dollar-to-slotl"></i>
+                <p>TARIFAS<i class="fas fa-angle-left right"></i></p>
             </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a class="nav-link  " href="tconsumo">
+                      <i class="fa fa-circle-dollar-to-slot"></i>
+                      <p>Tarifas consumos</p>
+                  </a>
+                </li>
+                <li class="nav-item has-treeview ">
+                  <a class="nav-link  " href="tmulta">
+                      <i class="fa fa-circle-dollar-to-slot"></i>
+                      <p>Tarifas Multa</p>
+                  </a>
+                </li>
+                <li class="nav-item has-treeview ">
+                  <a class="nav-link  " href="taporte">
+                      <i class="fa fa-circle-dollar-to-slot"></i>
+                      <p>Tarifas Aportes</p>
+                  </a>
+                </li>
+            </ul>
+
         </li>
-        <li class="nav-item">
-            <a class="nav-link  " href="tmulta">
-                <i class="fa fa-circle-dollar-to-slot"></i>
-                <p>Tarifas Multa</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link  " href="taporte">
-                <i class="fa fa-circle-dollar-to-slot"></i>
-                <p>Tarifas Aportes</p>
-            </a>
-        </li>
+
         <li @can('lectura.index')
         class="nav-item">
         <a class="nav-link  " href="notices.edit">
@@ -157,13 +168,13 @@
             </a>
         </li>
 
-        <li @can('reporte.index')
+        {{-- <li @can('reporte.index')
         class="nav-item">
         <a class="nav-link  " href="reporte">
             <i class="fas fa-fw fa-bug"></i>
             <p>Reportes</p>
         </a>
         @endcan
-        </li>
+        </li> --}}
     </ul>
 </aside>

@@ -14,11 +14,12 @@ class CreateMetersTable extends Migration
     public function up()
     {
       Schema::create('meters', function (Blueprint $table) {
-          //$table->engine="InnoDB";
+          $table->engine="InnoDB";
           $table->id();
           $table->foreignId('user_id');//->references('id')->on('users')->onDelete('cascade')->unsigned();
           $table->string('nombre',25);
           $table->string('direccion',100);
+          $table->timestamps();
           });
     }
 

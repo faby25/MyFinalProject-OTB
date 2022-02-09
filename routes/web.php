@@ -10,6 +10,7 @@ use App\Http\Controllers\PostController;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Meter;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TconsumoController;
@@ -75,7 +76,7 @@ Route::get('/meters={meter:id}',function(Meter $meter){
   return view('notice.index',[
     'lecturas'=>$meter->lecturas,
   ]);
-})->name('category');
+})->name('meter');
 
 //vistas-ADMIN
 Route::resource('lectura',LecturaController::class);
@@ -99,9 +100,9 @@ Route::DELETE('medidor.delete.{meter}',[MeterController::class,'destroy']);
 
 Route::resource('taporte',TaporteController::class);
 Route::get('taporte.create',[TaporteController::class,'create']);
-Route::get('taporte.edit.{tmulta:id}',[TaporteController::class,'edit']);
-Route::PATCH('taporte.update.{tmulta:id}',[TaporteController::class,'update']);
-Route::DELETE('taporte.delete.{tmulta}',[TaporteController::class,'destroy']);
+Route::get('taporte.edit.{taporte:id}',[TaporteController::class,'edit']);
+Route::PATCH('taporte.update.{taporte:id}',[TaporteController::class,'update']);
+Route::DELETE('taporte.delete.{taporte}',[TaporteController::class,'destroy']);
 
 Route::resource('tmulta',TmultaController::class);
 Route::get('tmulta.create',[TmultaController::class,'create']);

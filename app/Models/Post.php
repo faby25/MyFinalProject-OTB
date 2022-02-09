@@ -34,8 +34,8 @@ class Post extends Model
     * Attributes that should be mass-assignable.
     */
       // protected $fillable= ['title','body','thumbnail'];
-      protected $with=['category', 'user'];//todos los post incluiran su categoria y usuario o autor
-      protected $fillable = ['user_id','category_id','slug','title','excerpt','body'];
+      // protected $with=['category', 'user'];//todos los post incluiran su categoria y usuario o autor
+      // protected $fillable = ['thumbnail','user_id','category_id','slug','title','excerpt','body'];
        // protected $guarded=[];
       // protected $guarded= ['id'];
 

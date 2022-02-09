@@ -46,19 +46,19 @@ class PostController extends Controller
      const EXCERPT_LENGTH = 100;
     public function store(Request $request)
     {
-        $post = new Post;
-        $post->user_id = auth()->id();
-        $post->category_id = $request->category_id;
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->slug = Str::slug($request->title);//$request->slug;
-        $post->excerpt = Str::limit($request->body, 350);//$request->excerpt;
-        if (isset($request['thumbnail'])) {
-          $post->thumbnail =request()->file('thumbnail')->store('thumbnails');
-        }
-        $post->save(); // Post::create($attributes);
-        return redirect('posts')
-            ->with('success', 'El post fue creado exitosamente.');
+      $post = new Post;
+      $post->user_id = auth()->id();
+      $post->category_id = $request->category_id;
+      $post->title = $request->title;
+      $post->body = $request->body;
+      $post->slug = Str::slug($request->title);//$request->slug;
+      $post->excerpt = Str::limit($request->body, 350);//$request->excerpt;
+      if (isset($request['thumbnail'])) {
+        $post->thumbnail =request()->file('thumbnail')->store('thumbnail');
+      }
+      $post->save(); // Post::create($attributes);
+      return redirect('posts')
+          ->with('success', 'El post fue creado exitosamente.');
     }
     /**
      * Display the specified resource.
@@ -92,7 +92,8 @@ class PostController extends Controller
         $datos['slug'] = Str::slug($request->title);
         $datos['excerpt'] = Str::limit($request->body, 350);
         if (isset($datos['thumbnail'])) {
-            $datos['thumbnail']=request()->file('thumbnail')->store('thumbnails');
+            // $datos['thumbnail']=request()->file('thumbnail')->save('../storage/app/public/thumbnail/'. {{$post->thumbnail}});
+            $datos['thumbnail']=request()->file('thumbnail')->store('thumbnail');
         }
         Post::where('id','=',$post->id)->update($datos);
         $post=Post::findOrFail($post->id);

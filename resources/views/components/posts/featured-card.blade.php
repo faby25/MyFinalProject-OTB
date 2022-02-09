@@ -1,9 +1,13 @@
 @props(['post'])
-<div class="transition-colors duration-300 hover:bg-gray-100 border border-black border-opacity-0 hover:border-opacity-5 rounded-xl">
+<article class="transition-colors duration-300 hover:bg-gray-100 border border-black border-opacity-0 hover:border-opacity-5 rounded-xl">
+
     <div class="py-4 px-4 lg:flex">
-        <div class="flex lg:mr-4">
+        {{-- <div class="flex lg:mr-4">
           <img src="./storage/{{$post->thumbnail}}" alt="Blog Post illustration" class="rounded  h-80 w-auto">
-        </div>
+        </div> --}}
+            <div class="items-center inline-flex">
+                <img src="../storage/{{$post->thumbnail}}" alt="Card Post illustration" class="rounded-xl h-80 w-auto ">
+            </div>
 
         <div class="flex-1 flex-col justify-between">
             <header class="mt-2 lg:mt-0">
@@ -45,4 +49,4 @@
             </footer>
         </div>
     </div>
-</div>
+</article>
