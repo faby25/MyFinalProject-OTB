@@ -18,7 +18,9 @@ class CreateMultasTable extends Migration
 
             $table->foreignId('user_id');
             $table->foreignId('tmulta_id');
-            $table->boolean('activo');//->default(false);
+            $table->boolean('activo')->default(false);
+            $table->string('descripcion');
+
 
             $table->timestamps();
         });

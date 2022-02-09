@@ -10,7 +10,7 @@
         @includeif('partials.errors')
 
         <div class="card">
-            <form class="card-blue" action="/posts.update.{{$post->slug}}" method="Post" role="form" enctype="multipart/form-data">
+            <form class="card-blue" action="posts.update.{{$post->slug}}" method="Post" role="form" enctype="multipart/form-data">
                 @csrf
                 {{ method_field('PATCH') }}
                 <div class="card-header ">

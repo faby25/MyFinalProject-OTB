@@ -8,6 +8,15 @@ $fecha = date("Y-m-d");
 //             ->count();
 ?>
 
+@php
+$carbon = new \Carbon\Carbon();
+$date = $carbon->now();
+$tconsumos=App\Models\Tconsumo::all();
+$taportes=App\Models\Taporte::all();
+$tmultas=App\Models\TMulta::all();
+   $subtotal = 0;
+@endphp
+
 <div class="card-header mt-2">
     <div class="float-left">
         <h1 class="h2">LECTURA: </h1>
@@ -19,16 +28,18 @@ $fecha = date("Y-m-d");
     </div>
     <div class="float-right">
 
-      <form method="post" action="notice.edit.{{$notice->id}}">
-          <input type="hidden" name="visitaID" value="$notice->id"/>
+      <form method="post" action="notice.update.{{$notice->id}}">
+          {{ method_field('PATCH') }}
+          @csrf
+          <input type="hidden" name="pagado" value="$notice->id"/>
           @if ($notice->pagado)
-              <button class="btn btn-lg btn-success" type="submit">
+              <button class="btn btn-primary btn-success" type="submit">
                 <h2 class="h2">
                   {{ "Cancelado" }}
                 </h2>
               </button>
           @else
-            <button class="btn btn-danger btn-sm" type="submit">
+            <button class="btn btn-primary btn-danger" type="submit">
               <h2 class="h2">
                 {{ "Pendiente" }}
               </h2>
@@ -41,14 +52,6 @@ $fecha = date("Y-m-d");
     </div>
 </div>
 
-@php
-$carbon = new \Carbon\Carbon();
-$date = $carbon->now();
-$tconsumos=App\Models\Tconsumo::all();
-$taportes=App\Models\Taporte::all();
-$tmultas=App\Models\TMulta::all();
-   $subtotal = 0;
-@endphp
 <div class="row" style="margin-bottom: 1rem;">
     <div class="col-sm-6">
       <h1 class="font-semibold text-3x1">
@@ -146,25 +149,25 @@ $tmultas=App\Models\TMulta::all();
           {{-- @foreach ($tmultas as $tmulta) --}}
           <tr>
               <td colspan="3" class="text-right"><?php echo $tmultas['0']->descripcion ?></td>
-                  @if ($notice->pagado)
-                    <?php
-                        $total = 0.00;
-                        $subtotal += $total;
-                    ?>
-                  @else
-                      @if($notice->fechaVencimiento < $date)
-                        <?php
-                            $total = $tmultas['0']["monto"];
-                            $subtotal += $total;
-                        ?>
-                      @else
-                        <?php
-                            $total = 0.00;
-                            $subtotal += $total;
-                        ?>
-                      @endif
-                  @endif
-
+              {{$date}}
+              @if($notice->fechaVencimiento > $date)
+                <?php
+                    $total = 0;//$tmultas['0']["monto"];
+                    $subtotal += $total;
+                ?>
+              @else
+                @if ($notice->pagado)
+                  <?php
+                      $total =$notice->multaMorosidad;
+                      $subtotal += $total;
+                      ?>
+                @else
+                  <?php
+                      $total = $tmultas['0']["monto"];
+                      $subtotal += $total;
+                  ?>
+                @endif
+                @endif
               <td>Bs. {{$total}}</td>
           </tr>
 

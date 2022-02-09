@@ -12,7 +12,7 @@
             </ul>
         </div>
         <!-- Right navbar links -->
-        <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+        <ul class=" navbar-nav fixed top-0 right-0 px-2 py-2 ">
           <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
               <i class="far fa-bell"></i>

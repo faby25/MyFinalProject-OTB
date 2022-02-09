@@ -23,6 +23,12 @@ class PostController extends Controller
         return view('posts.index',['posts'=>Post::paginate(10)] )//compact('posts')
             ->with('i', (request()->input('page', 1) - 1) * $posts->perPage());
     }
+    public function socios()
+    {
+        $posts = Post::paginate();
+        return view('posts.socios',['posts'=>Post::paginate(10)] )//compact('posts')
+            ->with('i', (request()->input('page', 1) - 1) * $posts->perPage());
+    }
     /**
      * Show the form for creating a new resource.
      * @return \Illuminate\Http\Response
@@ -54,25 +60,6 @@ class PostController extends Controller
         return redirect('posts')
             ->with('success', 'El post fue creado exitosamente.');
     }
-      // public function store()
-      // {
-      //   // $path=request()->file('thumbnail')->store('thumbnails');
-      //   //      ddd(request()->file('thumbnail'));
-      //      $attributes = request()->validate([
-      //        'title' =>'required',
-      //        'thumbnail'=>'required',
-      //        'slug'=>'required',
-      //         // Rule::unique('posts','slug')],
-      //        'excerpt' =>'required',
-      //        'body'=>'required',
-      //        'category_id' =>'required',
-      //        // Rule::exists('categories','id')]
-      //      ]);
-      //      $attributes['user_id']=auth()->id();
-      //       $attributes['thumbnail']=request()->file('thumbnail')->store('thumbnails');
-      //      Post::create($attributes);
-      //      return redirect('/posts')->with('success', 'Post created successfully.');
-      //    }
     /**
      * Display the specified resource.
      * @param  int $id
@@ -81,6 +68,10 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return view('posts.show', compact('post'));// $post = Post::find($id);
+    }
+    public function sinAtender(Post $post)
+    {
+        return view('posts.sinAtender', compact('post'));// $post = Post::find($id);
     }
     /**
      * Show the form for editing the specified resource.
@@ -100,14 +91,25 @@ class PostController extends Controller
         $datos = request()->except(['_token','_method']);
         $datos['slug'] = Str::slug($request->title);
         $datos['excerpt'] = Str::limit($request->body, 350);
-
         if (isset($datos['thumbnail'])) {
             $datos['thumbnail']=request()->file('thumbnail')->store('thumbnails');
+        }
+        Post::where('id','=',$post->id)->update($datos);
+        $post=Post::findOrFail($post->id);
+        return redirect('posts')->with('success', 'El post fue actualizado exitosamente.');
+    }
+    public function atendido(Request $request, Post $post)
+    {
+        $datos = request()->except(['_token','_method']);
+        if ($datos['atendido']) {
+          $datos['atendido']=0;
+        } else {
+          $datos['atendido']=1;
         }
 
         Post::where('id','=',$post->id)->update($datos);
         $post=Post::findOrFail($post->id);
-        return redirect('posts')->with('success', 'El post fue actualizado exitosamente.');
+        return redirect('posts.socios')->with('success', 'El post fue actualizado exitosamente.');
     }
     /**
      * @return \Illuminate\Http\RedirectResponse

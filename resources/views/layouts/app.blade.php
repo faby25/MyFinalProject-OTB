@@ -14,11 +14,11 @@
                 <div class="p-3 sm:rounded overflow-hidden bg-white border-b border-gray-200">
                     <!-- ....................Page Heading...................... -->
                     <section class="content-header">
-                      <div class="container-fluid">
-                        <div class="row mb-2">
+                      {{-- <div class="container-fluid"> --}}
+                        <div class="row">
                         {{ $header }}
                         </div>
-                      </div>
+                      {{-- </div> --}}
                     </section>
                     <!-- ................Page Content .........................-->
                     <section class="content-main">

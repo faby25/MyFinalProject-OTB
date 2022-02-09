@@ -5,10 +5,19 @@
             {{ __('Listado de Socios') }}
         </h2>
     </x-slot>
-        @can('user.create')
-        <a href="user.create" class="btn btn-primary">Adicionar Socio</a>
-        @endcan
+
         <div class="card">
+          <div class="card-header">
+            <div class="float-right">
+              @can('user.create')
+              <a href="user.create" class="btn btn-primary btn-sm float-right">Adicionar Socio</a>
+              @endcan
+
+            </div>
+
+          </div>
+
+
             <div class="card-body">
                 <table id="tconsumo" class="table table-hover table-striped">
                     <thead class="thead-light">
@@ -25,8 +34,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ( $users as $user )    
-                            <tr>                       
+                        @foreach ( $users as $user )
+                            <tr>
                                 <td style="display: none">{{ $user->id }}</td>
                                 <td>{{ $user->ci }}</td>
                                 <td>{{ $user->name }}</td>
@@ -48,9 +57,9 @@
                                     @endcan
                                 </td>
                                 <td>
-                                    
+
                                     <a href="medidor.edit.{{$user->id}}"> Adicionar Medidor</a>
-                                   
+
                                 </td>
                             </tr>
                         @endforeach

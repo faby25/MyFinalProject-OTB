@@ -38,6 +38,7 @@
                         <th>Categoría</th>
                         <th>Titulo</th>
                         <th>Detalle</th>
+                        <th>Estado</th>
                         <th>Archivos</th>
                         <th></th>
                     </tr>
@@ -46,15 +47,19 @@
                     @foreach ($posts as $post)
                     @if ($post->user_id == auth()->id())
                     <tr>
-                        {{-- <td>{{ ++$i }}</td>
-                        <td value="{{$post->user_id}}">{{ $post->user->name }}</td> --}}
                         <td value="{{ $post->category_id}}">{{ $post->category->name}}</td>
                         <td>{{ $post->title }}</td>
                         <td>{{ $post->body }}</td>
                         <td>
+                            @if ($post->atendido)
+                            {{ "Atendido" }}
+                            @else
+                            {{ "Sin Atender" }}
+                            @endif
+                        </td>
+                        <td>
                           {{-- {{ $post->thumbnail }} --}}
                           <img src="{{  asset('./storage/'.$post->thumbnail) }}" alt="" class="rounded-xl" width="100">
-
                           {{-- {{$img = Image::make($path)->resize($width, $height)->save($path)}} --}}
                         </td>
                         <td>

@@ -18,13 +18,13 @@
 <body style="font-family: Open Sans, sans-serif">
         <nav class="md:flex lg:fixed top-0 md:justify-between md:items-center">
             <a href="/">
-                  <x-application-logo class="w-180 h-auto fill-current " id="1"/>
+                  <x-application-logo class="w-150 h-auto fill-current " id="1"/>
             </a>
             <div class="flex items-center">
                 @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-5 px-5 py-5 sm:block ">
+                <div class="hidden fixed top-0 right-3 px-3 py-4 sm:block ">
                     @auth
-                    <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
+                      <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500">Dashboard <i class="nav-link fa fa-home"></i></a>
                     @else
                     <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Ingresar</a>
                     @endauth

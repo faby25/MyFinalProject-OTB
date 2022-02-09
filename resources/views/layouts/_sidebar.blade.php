@@ -6,7 +6,7 @@
         </span>
     </x-nav-link>
     <ul class="pt-3 nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu">
-        @if (Auth::user()->hasAnyRole('Admin', 'Cajero','Lecturador'))
+        @if (Auth::user()->hasAnyRole('SuperAdmin','Admin', 'Cajero','Lecturador','SuperAdmin'))
         <li class="nav-item has-treeview ">
             <a class="nav-link  " href="dashboard">
                 <i class="fas fa-fw fa-share "></i>
@@ -14,9 +14,9 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a class="nav-link  " href="dashboard">
+                    <a class="nav-link  " href="posts.socios">
                         <i class="far fa-fw fa-circle "></i>
-                        <p>Buzon de Reclamos y Sugerencias</p>
+                        <p>Buzon sin atender</p>
                     </a>
                 </li>
                 <li class="nav-item has-treeview ">
@@ -42,21 +42,36 @@
         </li>
         @else
         <li class="nav-item">
-            <a class="nav-link  " href="notices.recibo"><?php // TODO:  ?>
+            <a class="nav-link  " href="dashboard"><?php // TODO:  ?>
                 <i class="far fa-fw fa-bell"></i>
                 <p>NOTIFICACIONES<span class="badge badge-success right">4</span></p>
             </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a class="nav-link  " href="notices.recibo">
+                        <i class="far fa-fw fa-circle "></i>
+                        <p>Ver Recibos Pendientes</p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview ">
+                    <a class="nav-link  " href="multas">
+                        <i class="far fa-fw fa-circle "></i>
+                        <p>Ver multas<i class="fas fa-angle-left right"></i></p>
+                    </a>
+                </li>
+            </ul>
+
         </li>
         @endif
         <li class="nav-header ">CONFIGURACIONES</li>
         <li class="nav-item">
-            <a class="nav-link  " href="/admin/settings">
+            <a class="nav-link  " href="user.show">
                 <i class="fas fa-fw fa-user fa fa-user "></i>
                 <p>Perfil</p>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link  " href="/admin/settings">
+            <a class="nav-link  " href="contraseña.edit.{{Auth::user()->id}}">
                 <i class="fas fa-fw fa-lock "></i>
                 <p>Cambiar Contraseña</p>
             </a>
@@ -82,9 +97,15 @@
                 <p>Tarifas Multa</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link  " href="taporte">
+                <i class="fa fa-circle-dollar-to-slot"></i>
+                <p>Tarifas Aportes</p>
+            </a>
+        </li>
         <li @can('lectura.index')
         class="nav-item">
-        <a class="nav-link  " href="user.index">
+        <a class="nav-link  " href="notices.edit">
             <i class="fas fa-fw fa-glasses"></i>
             <p>Registrar Lectura</p>
         </a>
@@ -99,26 +120,50 @@
         </a>
         @endcan
         </li>
-        @if (Auth::user()->hasAnyRole('Admin', 'Cajero','Lecturador'))
-          <li class="nav-item">
-              <a class="nav-link  " href="posts">
-                  <i class="fa fa-envelope"></i>
-                  <p>Posts de la Pagina Principal</p>
-              </a>
-          </li>
-          @else
-          <li class="nav-item">
-              <a class="nav-link  " href="posts">
-                  <i class="fa fa-envelope"></i>
-                  <p>Buzon de reclamos y Sugerencias</p>
-              </a>
-          </li>
+        <li @can('user.index')
+        class="nav-item">
+        <a class="nav-link  " href="mreunion">
+            <i class="fas fa-fw fa-highlighter"></i>
+            <p>Control de Asistencia</p>
+        </a>
+        @endcan
+        </li>
+
+        @if (Auth::user()->hasAnyRole('SuperAdmin','Admin', 'Cajero','Lecturador'))
+        <li class="nav-item">
+            <a class="nav-link  " href="posts">
+                <i class="fa fa-envelope"></i>
+                <p>Mis Posts de la Pagina Principal</p>
+            </a>
+        </li>
+        @else
+        <li class="nav-item">
+            <a class="nav-link  " href="posts">
+                <i class="fa fa-envelope"></i>
+                <p>Buzon de reclamos y Sugerencias</p>
+            </a>
+        </li>
         @endif
+        <li class="nav-item">
+            <a class="nav-link  " href="posts.socios">
+                <i class="fa fa-envelope "></i>
+                <p>Buzon de Reclamos y Sugerencias de Socios</p>
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link  " href="notices">
                 <i class="fa fa-envelope"></i>
                 <p>Recibos de agua</p>
             </a>
+        </li>
+
+        <li @can('reporte.index')
+        class="nav-item">
+        <a class="nav-link  " href="reporte">
+            <i class="fas fa-fw fa-bug"></i>
+            <p>Reportes</p>
+        </a>
+        @endcan
         </li>
     </ul>
 </aside>

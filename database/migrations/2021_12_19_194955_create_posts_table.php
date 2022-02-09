@@ -20,9 +20,10 @@ class CreatePostsTable extends Migration
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('slug')->unique();
             $table->string('title');
-            $table->string('thumbnail')->default('thumbnails\\otbsuca.jpg');//->nullable()
+            $table->string('thumbnail')->default('\thumbnails\otbsuca.jpg');
             $table->text('excerpt');
             $table->text('body');
+            $table->boolean('atendido')->default(false);
             $table->timestamps();
           });
     }
@@ -36,4 +37,5 @@ class CreatePostsTable extends Migration
     {
         Schema::dropIfExists('posts');
     }
+
 }

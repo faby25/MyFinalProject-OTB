@@ -27,7 +27,8 @@
                         <x-application-logo class="h-20 w-auto" id="1"/>
                       </div>
                         <ul class="contact">
-                            <li><i class="fas fa-map-marker-alt"></i><a href="#" target="_blank" rel="noopener">Calle 95 # 71 -45. Cochabamba-Quillacollo</a></li>
+                            <li><i class="fas fa-map-marker-alt"></i><a href="#" target="_blank" rel="noopener">O.T.B. SUCA OESTE DISTRITO 1</a></li>
+                            <li><i class="fas fa-map-marker-alt"></i><a href="#" target="_blank" rel="noopener">Calle Sucre entre Tomas Bata 5/N. Quillacollo-Cbba</a></li>
                             <li><i class="far fa-envelope"></i><a href="mailto:SuperrAddmin@gmail.com">SuperrAddmin@gmail.com</a></li>
                             <li><i class="far fa-envelope"></i><a href="mailto:AddminOTB@gmail.com">AddminOTB@gmail.com</a></li>
                         </ul>
@@ -62,7 +63,7 @@
                 <aside >
                   <img src="./images/lary-newsletter-icon.svg" alt="" class="mx-auto -mb-3" style="width:80px;">
                   <h3 class="mt-2 lg:mt-0 lg:ml-3 text-ms font-bold uppercase py-2 px-8">
-                      Nuestro equipo:</h3>
+                    Nuestro equipo:</h3>
                         <ul class="contact">
                           <li>
                             <div class="name">Fabiola D. Morales Siles</div>
@@ -70,11 +71,15 @@
                             <a href="mailto:moralessfaby1@gmail.com" class="mail"><i class="far fa-envelope"></i>MoralessFaby1@gmail.com</a>
                           </li>
                             <li>
-                                <p class="name">Fabiola D. Morales Siles</p>
-                                <a href="tel: +59172248669" class="tel"><i class="fas fa-mobile-alt"></i> (+591) 7 2248 669</a>
-                                <a href="mailto:faby025494@gmail.com" class="mail"><i class="far fa-envelope"></i>faby025494@gmail.com</a>
+                                <p class="name">Marco A. Cadima Bustamante</p>
+                                <a href="tel: +59169446739" class="tel"><i class="fas fa-mobile-alt"></i> (+591) 6 446 739</a>
+                                <a href="mailto:marcocadima@gmail.com" class="mail"><i class="far fa-envelope"></i>marcocadima@gmail.com</a>
                             </li>
-                        </ul>
+                            <li>
+                                <p class="name">Edwin C. Monasterios Nina</p>
+                                <a href="tel: +59171729919" class="tel"><i class="fas fa-mobile-alt"></i> (+591) 7 1772 919</a>
+                                <a href="mailto:edycelan@gmail.com" class="mail"><i class="far fa-envelope"></i>edycelan@gmail.com</a>
+                            </li>
                 </aside>
             </div>
     </div>

@@ -16,8 +16,8 @@ class CreateNoticesTable extends Migration
         Schema::create('notices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('lectura_id');//->references('id')->on('lecturas')->unsigned();
-            $table->string('total');
             $table->text('detalle');//->nullable();
+            $table->string('multaMorosidad');
             $table->boolean('pagado')->default(false);
             $table->timestamps();
             $table->Date('fechaVencimiento');

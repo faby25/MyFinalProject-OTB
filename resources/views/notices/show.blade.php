@@ -19,12 +19,13 @@
     <div class="card">
 
         <div class="card-body">
-            @include('notices.recibo')
+          @include('notices.recibo')
 
             <div class="float-right">
-                <a href="create-pdf-file" class="btn btn-primary">Imprimir</a>
-                <a href="{{ URL::previous() }}" class="btn btn-primary">Volver</a>
+                <a href="{{ url('create-pdf-file', $notice->id) }}" class="btn btn-primary">Imprimir</a>
+                <a href="notices" class="btn btn-primary">Volver</a>
             </div>
+
         </div>
 </x-app-layout>
 

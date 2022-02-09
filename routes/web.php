@@ -14,9 +14,11 @@ use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TconsumoController;
 use App\Http\Controllers\TmultaController;
+use App\Http\Controllers\TaporteController;
 use App\Http\Controllers\MeterController;
 use App\Http\Controllers\LecturaController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\ReunionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,7 +40,7 @@ Route::get('/users={user:username}',function(User $user){
 
 require __DIR__.'/auth.php';
 
-Route::get('create-pdf-file', [PDFController::class, 'index']);
+Route::get('create-pdf-file/{$notice:id}', [PDFController::class, 'index']);
 
 //Dashboard
 Route::get('/dashboard', function () {
@@ -51,18 +53,22 @@ Route::get('/dashboard', function () {
 
 //vistas-SOCIO
 Route::resource('posts',PostController::class);
+Route::get('posts.socios',[PostController::class,'socios']);
+Route::PATCH('posts.atendido.{post:id}',[PostController::class,'atendido']);
 Route::get('posts.create',[PostController::class,'create']);
 Route::post('posted',[PostController::class,'store']);
 Route::get('posts.edit.{post:slug}',[PostController::class,'edit']);
 Route::get('posts.show.{post:slug}',[PostController::class,'show']);
+Route::get('posts.sinAtender',[PostController::class,'sinAtender']);
 Route::PATCH('posts.update.{post:slug}',[PostController::class,'update']);
 Route::DELETE('posts.delete.{post}',[PostController::class,'destroy']);
 
 Route::get('notices',[NoticeController::class,'index']);
 Route::post('notice',[NoticeController::class,'store']);
 Route::get('notice.show.{notice:id}',[NoticeController::class,'show']);
-Route::get('notice.create.{lectura:id}',[NoticeController::class,'create']);
+// Route::get('notice.create.{lectura:id}',[NoticeController::class,'create']);
 Route::get('notice.edit.{notice:id}',[NoticeController::class,'edit']);
+Route::PATCH('notice.update.{notice:id}',[NoticeController::class,'update']);
 
 //  TODO:clasificacion de meters
 Route::get('/meters={meter:id}',function(Meter $meter){
