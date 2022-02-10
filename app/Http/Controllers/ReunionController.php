@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\multa;
 use App\Models\Tmulta;
 
 class ReunionController extends Controller
@@ -13,39 +14,36 @@ class ReunionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $datos ['users'] = User::where("is_admin","=",0)->paginate();
-        return view('mreunion.index',$datos);
-    }
+     public function index()
+       {
+           $datos ['users'] = User::where("is_admin","=",0)->paginate();
+           return view('mreunion.index',$datos);
+       }
+      public function create()
+       {
+           return view('mreunion.create');
+       }
+       public function store(Request $request)
+       {
+           $var2= 2;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+           $mult = new multa();
+           $mult->user_id = $request->user_id;
+           $mult->tmulta_id = $var2;
+           $mult->descripcion = $request->descripcion;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+           $mult->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+           return redirect('mreunion');
+       }
+
+       public function edit($id)
+       {
+           $datos['users']=User::find($id);
+           return view('mreunion.create',$datos);
+       }
+
+
     public function show($id)
     {
         //
@@ -57,11 +55,6 @@ class ReunionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *

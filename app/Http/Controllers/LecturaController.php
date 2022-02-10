@@ -29,7 +29,6 @@ class LecturaController extends Controller
         // return view('lectura.index', compact('lecturas'))
         //     ->with('i', (request()->input('page', 1) - 1) * $lecturas->perPage());
     }
-
     /**
      * Show the form for creating a new resource.
      * @return \Illuminate\Http\Response
@@ -38,20 +37,26 @@ class LecturaController extends Controller
     {
         $tconsumos=Tconsumo::first();
         $meter=Meter::find($id);
-        $lect=Lectura::where("meter_id","=",$id)->orderby('id', 'desc')->first();
-         return view('lecturas.create',compact('tconsumos','lect','meter'));
+        $consulta=Lectura::where("meter_id","=",$id);
+        if($consulta->count()>0)
+        {
+            $lect=Lectura::where("meter_id","=",$id)->orderby('id', 'desc')->first();
+        }
+        else
+        {
+            $var= new Lectura();
+            $var->meter_id = $id;
+            $var->lectura = 0;
+            $var->consumo = 0;
+            $var->save();
+
+            return redirect('lectura');
+        }
+        return view('lecturas.create',compact('tconsumos','meter','lect'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-      // request()->validate(Lectura::$rules);
-      // $lectura = Lectura::create($request->all());
         $var1 = $request->lectura;
         $var2 = $request->ulect;
         $consumo = $var1 - $var2;
@@ -65,10 +70,9 @@ class LecturaController extends Controller
 
         $notice = new Notice;
         $notice->pagado = 0;
-        $notice->consumo = $consumo;
-        $notice->multaMorosidad=0;
         $notice->lectura_id = $lect->id;
         $notice->detalle = $request->detalle;
+        $notice->total = $consumo;
         $notice->created_at =Carbon::now();
         $notice->fechaVencimiento =  Carbon::now()->addWeeks(2);
 
@@ -76,7 +80,6 @@ class LecturaController extends Controller
         return redirect('lectura');
         // return view('notices.create',compact('notice','lect'));
     }
-
     /**
      * Display the specified resource.
      * @param  int $id
@@ -87,7 +90,6 @@ class LecturaController extends Controller
         $lectura = Lectura::find($id);
         return view('lecturas.show', compact('lectura'));
     }
-
     /**
      * Show the form for editing the specified resource.
      * @param  int $id
@@ -95,7 +97,8 @@ class LecturaController extends Controller
      */
     public function edit($id)
     {
-        // $lectura = Lectura::find($id);
+        $consulta = Lectura::where('meter_id','=',$id);
+
         /* $users=User::select('medidors.id','users.name as nombre','users.lastnameM','users.lastnameF')
                    ->join('medidors','users.id','=','medidors.user_id')->where('medidors.id','=',$id); */
         // return view('lectura.edit', compact('lectura'));
@@ -115,7 +118,6 @@ class LecturaController extends Controller
         return redirect()->route('lecturas.index')
             ->with('success', 'Lectura updated successfully');
     }
-
     /**
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse

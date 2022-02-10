@@ -15,7 +15,7 @@ class MeterController extends Controller
    */
   public function index()
   {
-      $datos['meters']=Meter::all();
+      $datos=Meter::all();
       return view('medidores.index',$datos);
   }
 

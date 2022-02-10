@@ -57,8 +57,7 @@
                                 {{ "Pendiente" }}
                                 @endif
                             </td>
-                            {{-- {{ $post->thumbnail }} --}}
-                            <img src="{{  asset('./storage'.$post->thumbnail) }}" alt="" class="rounded-xl" width="100">
+                            {{-- <img src="{{  asset('./storage'.$post->thumbnail) }}" alt="" class="rounded-xl" width="100"> --}}
                             {{-- {{$img = Image::make($path)->resize($width, $height)->save($path)}} --}}
                             <td>
                                 <a class="btn btn-sm btn-primary " href="notice.show.{{$notice->id}}"><i class="fa fa-fw fa-eye"></i>Recibo</a>

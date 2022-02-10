@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="direccion" class="col-md-4 col-form-label text-md-end">{{ __('Direccion ::') }}</label>
+                                    <label for="direccion" class="col-md-4 col-form-label text-md-end">{{ __('Dirección ::') }}</label>
 
                                     <div class="col-md-6">
                                         <input id="direccion" type="text" class="form-control @error('direccion') is-invalid @enderror" name="direccion" value="{{ old('direccion') }}" required autocomplete="direccion" autofocus>
@@ -70,8 +70,8 @@
                                     <thead class="thead-ligth">
                                         <tr>
                                             <th>#</th>
-                                            <th>nombre</th>
-                                            <th>direccion</th>
+                                            <th>Nombre</th>
+                                            <th>Dirección</th>
                                             <th></th>
                                             <th></th>
                                         </tr>

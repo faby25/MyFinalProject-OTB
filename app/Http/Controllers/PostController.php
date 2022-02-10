@@ -102,7 +102,7 @@ class PostController extends Controller
     public function atendido(Request $request, Post $post)
     {
         $datos = request()->except(['_token','_method']);
-        if ($datos['atendido']) {
+        if ($datos['atendido']==1) {
           $datos['atendido']=0;
         } else {
           $datos['atendido']=1;

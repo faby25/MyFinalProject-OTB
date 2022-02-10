@@ -7,41 +7,42 @@
     </x-nav-link>
     <ul class="pt-3 nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu">
         @if (Auth::user()->hasAnyRole('SuperAdmin','Admin', 'Cajero','Lecturador'))
-        <li class="nav-item has-treeview ">
-            <a class="nav-link  " href="dashboard">
-                <i class="fas fa-fw fa-share "></i>
-                <p>NOTIFICACIONES<i class="fas fa-angle-left right"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a class="nav-link  " href="posts.socios">
-                        <i class="far fa-fw fa-circle "></i>
-                        <p>Buzon sin atender</p>
-                    </a>
-                </li>
-                {{-- <li class="nav-item has-treeview ">
-                    <a class="nav-link  " href="">
-                        <i class="far fa-fw fa-circle "></i>
-                        <p>Lista de pagos<i class="fas fa-angle-left right"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link  " href="/reclamos"><i class="far fa-fw fa-circle "></i>
-                                <p>por pagar</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  " href="#">
-                                <i class="far fa-fw fa-circle "></i>
-                                <p>retrasos/multas</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
-            </ul>
-        </li>
+          <li class="nav-item has-treeview ">
+              <a class="nav-link  " href="dashboard">
+                  {{-- <i class="fas fa-fw fa-share "></i> --}}
+                      <i class="far fa-fw fa-bell"></i>
+                  <p>NOTIFICACIONES<i class="fas fa-angle-left right"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                      <a class="nav-link  " href="posts.socios">
+                          <i class="far fa-fw fa-circle "></i>
+                          <p>Buzon sin atender</p>
+                      </a>
+                  </li>
+                  {{-- <li class="nav-item has-treeview ">
+                      <a class="nav-link  " href="">
+                          <i class="far fa-fw fa-circle "></i>
+                          <p>Lista de pagos<i class="fas fa-angle-left right"></i></p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                              <a class="nav-link  " href="/reclamos"><i class="far fa-fw fa-circle "></i>
+                                  <p>por pagar</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link  " href="#">
+                                  <i class="far fa-fw fa-circle "></i>
+                                  <p>retrasos/multas</p>
+                              </a>
+                          </li>
+                      </ul>
+                  </li> --}}
+              </ul>
+          </li>
         @else
-        <li class="nav-item">
+        <li class="nav-item has-treeview ">
             <a class="nav-link  " href="dashboard"><?php // TODO:  ?>
                 <i class="far fa-fw fa-bell"></i>
                 <p>NOTIFICACIONES<span class="badge badge-success right"></span></p>
@@ -77,18 +78,57 @@
             </a>
         </li> --}}
 
+        {{-- <li class="nav-header ">VER</li> --}}
+
+
         <li class="nav-header ">OPCIONES</li>
         <li @can('user.index')
-        class="nav-item ">
-        <a class="nav-link  " href="user"><i class="fas fa-fw fa-users"></i>
-            <p>Lista de Socios</p>
-        </a>
-        @endcan
+          class="nav-item ">
+          <a class="nav-link  " href="user"><i class="fas fa-fw fa-users"></i>
+              <p>Lista de Socios</p>
+          </a>
+          @endcan
         </li>
+
+        <li
+            @can('lectura.index')
+            class="nav-item">
+            <a class="nav-link  " href="lectura">
+                <i class="fas fa-fw fa-glasses"></i>
+                <p>Registrar Lectura</p>
+            </a>
+            @endcan
+        </li>
+        <li class="nav-item has-treeview">
+            <a class="nav-link  " href="notices">
+                <i class="fas fa-fw fa-cash-register"></i>
+              {{-- <i class="fa fa-envelope"></i> --}}
+                <p>Registro de Pagos<i class="fas fa-angle-left right"></i></p>
+            </a>
+              @can('caja')
+            <ul class="nav nav-treeview">
+              <li class="nav-item"
+                ><a class="nav-link  " href="notices.pendientes">
+                    {{-- <i class="fas fa-fw fa-cash-register"></i> --}}
+                    <i class="fas fa-fw fa-dollar-sign"></i>
+                    <p>Pagos pendiente</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                    <a class="nav-link  " href="notices">
+                        <i class="fas fa-fw fa-dollar-sign "></i>
+                        <p>Lista de todos los pagos</p>
+                    </a>
+                </li>
+            </ul>
+            @endcan
+        </li>
+
 
         <li class="nav-item has-treeview">
             <a class="nav-link  " href=""><?php // TODO:  ?>
-                <i class="fa fa-circle-dollar-to-slotl"></i>
+                {{-- <i class="fas fa-fw fa-share"></i> --}}
+                <i class="fa fa-circle-dollar-to-slot"></i>
                 <p>TARIFAS<i class="fas fa-angle-left right"></i></p>
             </a>
             <ul class="nav nav-treeview">
@@ -111,36 +151,16 @@
                   </a>
                 </li>
             </ul>
-
         </li>
 
-        <li @can('lectura.index')
-        class="nav-item">
-        <a class="nav-link  " href="notices.edit">
-            <i class="fas fa-fw fa-glasses"></i>
-            <p>Registrar Lectura</p>
-        </a>
-        @endcan
-        </li>
-        <li @can('caja.index')
-        class="nav-item">
-        <a class="nav-link  " href="user.index">
-            <i class="fas fa-fw fa-cash-register"></i>
-            {{-- <i class="fas fa-fw fa-dollar-sign"></i> --}}
-            <p>Registrar Pago</p>
-        </a>
-        @endcan
-        </li>
-        <li @can('user.index')
-        class="nav-item">
-        <a class="nav-link  " href="mreunion">
-            <i class="fas fa-fw fa-highlighter"></i>
-            <p>Control de Asistencia</p>
-        </a>
-        @endcan
-        </li>
 
         @if (Auth::user()->hasAnyRole('SuperAdmin','Admin', 'Cajero','Lecturador'))
+        <li class="nav-item">
+            <a class="nav-link  " href="posts.socios">
+                <i class="fa fa-envelope "></i>
+                <p>Buzon de Reclamos y Sugerencias</p>
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link  " href="posts">
                 <i class="fa fa-envelope"></i>
@@ -155,18 +175,6 @@
             </a>
         </li>
         @endif
-        <li class="nav-item">
-            <a class="nav-link  " href="posts.socios">
-                <i class="fa fa-envelope "></i>
-                <p>Buzon de Reclamos y Sugerencias de Socios</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link  " href="notices">
-                <i class="fa fa-envelope"></i>
-                <p>Recibos de agua</p>
-            </a>
-        </li>
 
         {{-- <li @can('reporte.index')
         class="nav-item">

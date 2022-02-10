@@ -80,12 +80,11 @@ Route::get('/meters={meter:id}',function(Meter $meter){
 
 //vistas-ADMIN
 Route::resource('lectura',LecturaController::class);
-// Route::get('lecturas.create.{meter:id}',[LecturaController::class,'create']);
-// Route::post('lecturas',[LecturaController::class,'store']);
-// Route::get('lecturas.edit.{meter:id}',[LecturaController::class,'edit']);
-// Route::PATCH('lecturas.update.{lectura:id}',[LecturaController::class,'update']);
-// Route::DELETE('lecturas.delete.{lectura}',[LecturaController::class,'destroy']);
-Route::resource('lectura',LecturaController::class);
+Route::get('lectura.create',[LecturaController::class,'create']);
+Route::get('lectura.edit.{lectura:id}',[LecturaController::class,'edit']);
+Route::PATCH('lectura.update.{lectura:id}',[LecturaController::class,'update']);
+Route::DELETE('lectura.delete.{lectura}',[LecturaController::class,'destroy']);
+
 Route::get('lectura.edit.{meter:id}',[LecturaController::class,'create']);
 Route::post('lectura',[LecturaController::class,'store']);
 Route::get('lectura.create.{meter:id}',[LecturaController::class,'create']);

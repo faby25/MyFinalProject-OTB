@@ -32,7 +32,7 @@ class AdminSeeder extends Seeder
         'password' =>bcrypt('password'),
         'is_admin'=>'1',
         'remember_token' => '0'
-        ])->assignRole('Admin');
+        ])->assignRole('SuperAdmin');
 
         User::create([
         // \DB::table('users')->insert([
