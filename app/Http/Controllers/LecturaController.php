@@ -23,7 +23,7 @@ class LecturaController extends Controller
      */
     public function index()
     {   //$lecturas = Lectura::paginate();
-        $datos['meters']=Meter::all();
+        $datos[]=Meter::all();
         // $datos=Meter::all();
         return view('lecturas.index',$datos);
         // return view('lectura.index', compact('lecturas'))
