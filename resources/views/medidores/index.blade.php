@@ -5,7 +5,10 @@
         </h2>
     </x-slot>
 
-@section('content')
+    @php
+    $meters = App\Models\Meter::all();
+    @endphp
+    
 <div class="container">
 
     <div class="row justify-content-center">

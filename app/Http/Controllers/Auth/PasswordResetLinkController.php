@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
-
+use Illuminate\Support\Facades\Validator;
 class PasswordResetLinkController extends Controller
 {
     /**
@@ -35,9 +35,9 @@ class PasswordResetLinkController extends Controller
         $request->merge([$loginField => $request->input('login')]);
 
         $request->validate([
-            // 'email' => ['required', 'email'],
-            'email' => 'required_without:username|email|exists:users,email',
-            'username' =>'requ ired_without:email|string|exists:users,username'
+            'email' => ['required', 'email'],
+            // 'email' => 'required_without:username|email|exists:users,email',
+            // 'username' =>'required_without:email|string|exists:users,username'
         ]);
 
         // We will send the password reset link to this user. Once we have attempted

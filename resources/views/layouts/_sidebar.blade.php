@@ -8,14 +8,14 @@
     <ul class="pt-3 nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu">
         @if (Auth::user()->hasAnyRole('SuperAdmin','Admin', 'Cajero','Lecturador'))
           <li class="nav-item has-treeview ">
-              <a class="nav-link  " href="dashboard">
+              <a class="nav-link  " href="">
                   {{-- <i class="fas fa-fw fa-share "></i> --}}
                       <i class="far fa-fw fa-bell"></i>
                   <p>NOTIFICACIONES<i class="fas fa-angle-left right"></i></p>
               </a>
               <ul class="nav nav-treeview">
                   <li class="nav-item">
-                      <a class="nav-link  " href="posts.socios">
+                      <a class="nav-link  " href="dashboard">
                           <i class="far fa-fw fa-circle "></i>
                           <p>Buzon sin atender</p>
                       </a>
@@ -43,23 +43,29 @@
           </li>
         @else
         <li class="nav-item has-treeview ">
-            <a class="nav-link  " href="dashboard"><?php // TODO:  ?>
-                <i class="far fa-fw fa-bell"></i>
-                <p>NOTIFICACIONES<span class="badge badge-success right"></span></p>
-            </a>
+          <a class="nav-link  " href="">
+                  <i class="far fa-fw fa-bell"></i>
+              <p>NOTIFICACIONES<i class="fas fa-angle-left right"></i></p>
+          </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a class="nav-link  " href="notices.recibo">
+                    <a class="nav-link  " href="pendientes">
                         <i class="far fa-fw fa-circle "></i>
-                        <p>Ver Recibos Pendientes</p>
+                        <p>Pagos Pendientes</p>
                     </a>
                 </li>
-                <li class="nav-item has-treeview ">
+                <li class="nav-item">
+                    <a class="nav-link  " href="notice.lastrecibo">
+                        <i class="far fa-fw fa-circle "></i>
+                        <p>Ultimo recibo</p>
+                    </a>
+                </li>
+                {{-- <li class="nav-item has-treeview ">
                     <a class="nav-link  " href="multas">
                         <i class="far fa-fw fa-circle "></i>
                         <p>Ver multas<i class="fas fa-angle-left right"></i></p>
                     </a>
-                </li>
+                </li> --}}
             </ul>
 
         </li>
@@ -99,7 +105,10 @@
             </a>
             @endcan
         </li>
-        <li class="nav-item has-treeview">
+        <li
+        {{-- @can ('notice.update', $post)
+        @endcan --}}
+          class="nav-item has-treeview">
             <a class="nav-link  " href="notices">
                 <i class="fas fa-fw fa-cash-register"></i>
               {{-- <i class="fa fa-envelope"></i> --}}
@@ -108,7 +117,7 @@
               @can('caja')
             <ul class="nav nav-treeview">
               <li class="nav-item"
-                ><a class="nav-link  " href="notices.pendientes">
+                ><a class="nav-link  " href="pendientes">
                     {{-- <i class="fas fa-fw fa-cash-register"></i> --}}
                     <i class="fas fa-fw fa-dollar-sign"></i>
                     <p>Pagos pendiente</p>

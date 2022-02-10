@@ -22,7 +22,7 @@ class PDFController extends Controller
           $notice=Notice::first();
 
 
-            $pdf = PDF::loadView('notices.recibo', $notice);
+            $pdf = PDF::loadView('notices.form');
           // $pdf = PDF::loadView('post-first-card', $data);
           return $pdf->download('tutsmake.pdf');
       }

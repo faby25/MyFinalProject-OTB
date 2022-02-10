@@ -21,11 +21,15 @@ class NoticeController extends Controller
     public function index()
     {
         // $notices = Notice::paginate();
-
         return view('notices.index');
             // ->with('i', (request()->input('page', 1) - 1) * $notices->perPage());
     }
-
+    public function pendientes()
+    {
+        // $notices = Notice::paginate();
+        return view('notices.pendientes');
+            // ->with('i', (request()->input('page', 1) - 1) * $notices->perPage());
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -63,7 +67,12 @@ class NoticeController extends Controller
 
         return view('notices.show', compact('notice'));
     }
+    public function showall()
+    {
+        // $notice = Notice::find($id);
 
+        return view('notices.pendientes', compact('notice'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -87,10 +96,10 @@ class NoticeController extends Controller
     public function update(Request $request, Notice $notice)
     {
         $datos = request()->except(['_token','_method']);
-
         $carbon = new \Carbon\Carbon();
         $date = $carbon->now();
         // $datos['multaMorosidad'] = $request->$multa;
+
         if ($notice->fechaVencimiento > $date) {
           $datos['multaMorosidad'] = 0;
         } else {
@@ -101,11 +110,9 @@ class NoticeController extends Controller
             $datos['multaMorosidad'] = $tmultas['0']["monto"];
           }
         }
-
-        $datos['pagado'] = 1;
+            $datos['pagado'] = 1;
         Notice::where('id','=',$notice->id)->update($datos);
         $notice=Notice::findOrFail($notice->id);
-
         return view('notices.show', compact('notice'))
             ->with('success', 'Notice updated successfully');
     }

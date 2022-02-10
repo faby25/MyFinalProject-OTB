@@ -1,148 +1,258 @@
+@php
+$carbon = new \Carbon\Carbon();
+$date = $carbon->now();
+$tconsumos=App\Models\Tconsumo::all();
+$taportes=App\Models\Taporte::all();
+$tmultas=App\Models\TMulta::all();
+   $subtotal = 0;
+@endphp
+
 <?php
 $socio = "Luis Cabrera Benito";
 $remitente = "Luis Cabrera Benito";
-$web = "https://parzibyte.me/blog";
-$mensajePie = "Gracias por su compra";
+$mensajePie = "OTB-SUCA";
 $numero = 1;
 $descuento = 0;
 $porcentajeImpuestos = 16;
 $tarifas = [
-    [
-        "precio" => 15,
-        "descripcion" => "Tarifa Basica",
-        "cantidad" => 1,
-    ],
-    [
-        "precio" => 10,
-        "descripcion" => "Tarifa for cubos de exeso",
-        "cantidad" => 2,
-    ],
+  [
+      "precio" => 15,
+      "descripcion" => "Tarifa Basica",
+      "cantidad" => 1,
+  ],
+  [
+      "precio" => 10,
+      "descripcion" => "Tarifa for cubos de exeso",
+      "cantidad" => 2,
+  ],
 ];
 $fecha = date("Y-m-d");
 ?>
-{{-- <!DOCTYPE html>
-<html lang="es">
-<head>
-    <link rel="stylesheet" href="./bs3.min.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Factura</title>
-</head>
-<body> --}}
+@php
+$meters = App\Models\Meter::where('user_id', auth()->id())->get();
+$notices=App\Models\Notice::all();
+$last=$notices[0];
+@endphp
+@foreach ($meters as $meter)
+    @foreach ($notices as $notice)
+      @if ($notice->lectura->meter_id == $meter->id)
+          @php
+            $last=$notice;
+          @endphp
+      @endif
+@endforeach
+
+@endforeach
+@php
+  $notice=$last;
+@endphp
 
 
-<div class="content">
-  <div class="row">
-      <div class="col">
-            <h1>  Recibo de Agua</h1>
-      </div>
-      <div class="col">
 
-      </div>
-      <div class="col">
-          {{-- <a href="/" class="">  --}}
-          <div colspan="3" class="text-right items-right">
+<div class="card-header mt-2">
+    <div class="float-left">
+        <h1 class="h2">LECTURA: </h1>
+        <strong>Factura # </strong>{{$notice->id}}
+        <h2 class="font-bold text-xl">
+            {{ $notice->detalle ?? 'Recibo' }}
+        </h2>
+        <br>
+    </div>
+    <div class="float-right">
 
-              <x-application-logo class="w-auto h-20" id="otbsuca.jpg"/>
-          </div>
-          {{-- </a> --}}
-      </div>
-  </div>
-    <div class="box-body">
-      <div class="row">
-
-          <div class="col">
-              <h1 class="h6"><?php echo $remitente ?></h1>
-              {{-- <h1 class="h6"><?php echo $web ?></h1> --}}
-          </div>
-          <div class="col col-xs-2 text-center">
-              <strong>Fecha</strong>
-              <br>
-              <?php echo $fecha ?>
-              <br>
-              <strong>Factura No.</strong>
-              <br>
-              <?php echo $numero ?>
-          </div>
-      </div>
-      <hr>
-      <div class="row text-center" style="margin-bottom: 2rem;">
-          <div class="col">
-              <h1 class="h2">Cliente</h1>
-              <strong><?php echo $socio ?></strong>
-          </div>
-          <div class="col">
-              <h1 class="h2">Remitente</h1>
-              <strong><?php echo $remitente ?></strong>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col-xs-12">
-              <table class="table table-condensed table-bordered table-striped">
-                  <thead>
-                  <tr>
-                      <th>Descripción</th>
-                      <th>Cantidad</th>
-                      <th>Precio unitario</th>
-                      <th>Total</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <?php
-                  $subtotal = 0;
-                  foreach ($tarifas as $tarifa) {
-                      $totalProducto = $tarifa["cantidad"] * $tarifa["precio"];
-                      $subtotal += $totalProducto;
-                      ?>
-                      <tr>
-                          <td><?php echo $tarifa["descripcion"] ?></td>
-                          <td><?php echo number_format($tarifa["cantidad"], 2) ?></td>
-                          <td>Bs.<?php echo number_format($tarifa["precio"], 2) ?></td>
-                          <td>Bs.<?php echo number_format($totalProducto, 2) ?></td>
-                      </tr>
-                  <?php }
-                  $subtotalConDescuento = $subtotal - $descuento;
-                  $impuestos = $subtotalConDescuento * ($porcentajeImpuestos / 100);
-                  $total = $subtotalConDescuento + $impuestos;
-                  ?>
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                      <td colspan="3" class="text-right">Subtotal</td>
-                      <td>Bs.<?php echo number_format($subtotal, 2) ?></td>
-                  </tr>
-                  <tr>
-                      <td colspan="3" class="text-right">Descuento</td>
-                      <td>Bs.<?php echo number_format($descuento, 2) ?></td>
-                  </tr>
-                  <tr>
-                      <td colspan="3" class="text-right">Subtotal con descuento</td>
-                      <td>Bs.<?php echo number_format($subtotalConDescuento, 2) ?></td>
-                  </tr>
-                  <tr>
-                      <td colspan="3" class="text-right">Impuestos</td>
-                      <td>Bs.<?php echo number_format($impuestos, 2) ?></td>
-                  </tr>
-                  <tr>
-                      <td colspan="3" class="text-right">
-                          <h4>Total</h4></td>
-                      <td>
-                          <h4>Bs.<?php echo number_format($total, 2) ?></h4>
-                      </td>
-                  </tr>
-                  </tfoot>
-              </table>
-          </div>
-      </div>
+      <form method="post" action="notice.update.{{$notice->id}}">
+          {{ method_field('PATCH') }}
+          @csrf
+          <input type="hidden" name="pagado" value="$notice->id"/>
+          @if ($notice->pagado)
+              <button class="btn btn-primary btn-success" type="submit">
+                <h2 class="h2">
+                  {{ "Cancelado" }}
+                </h2>
+              </button>
+          @else
+            <button class="btn btn-primary btn-danger" type="submit">
+              <h2 class="h2">
+                {{ "Pendiente" }}
+              </h2>
+            </button>
+          @endif
+      </form>
+      <strong>Fecha de vencimiento: </strong>
+      <br>{{ $notice->fechaVencimiento }}
 
     </div>
-    <div class="box-footer mt20">
-      <div class="row">
-          <div class="col text-center">
-              <p class="h5"><?php echo $mensajePie ?></p>
-          </div>
-      </div>
-        {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
+</div>
+
+<div class="row" style="margin-bottom: 1rem;">
+    <div class="col-sm-6">
+      <h1 class="font-semibold text-3x1">
+          {{ __('SOCIO: ') }}
+      </h1>
+        {{$notice->lectura->meter->user->name}}
+        {{$notice->lectura->meter->user->lastnameF}}
+        {{$notice->lectura->meter->user->lastnameM}}
+      <h1 class="font-semibold text-3x1">
+          {{ __('MEDIDOR: ') }}
+      </h1>
+        {{$notice->lectura->meter->nombre }}
+        <br>
+      <strong>Fecha: </strong> {{ $notice->created_at }}
+
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+
+      <table class="table table-condensed table-bordered table-striped">
+            <thead>
+            <tr>
+                <td><strong>LEC. ACT</strong><br>
+                  {{ $notice->lectura->lectura}}
+                </td>
+                <td><strong>TOTAL CUBOS</strong><br>
+                  {{ $notice->lectura->consumo}}
+                </td>
+            </tr>
+            <tr>
+                <td><strong>TARIFA BASICA</strong><br>
+                  {{ $tconsumos['0']->monto}}
+                </td>
+                <td><strong>CADA CUBO Bs.</strong><br>
+                  {{ $notice->lectura->consumo}}
+                </td>
+            </tr>
+            </thead>
+      </table>
+    </div>
+</div>
+
+<table class="table table-condensed table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Precio unitario</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{$tconsumos['0']->descripcion}}</td>
+            <td>{{$tconsumos['0']->monto}}</td>
+            <td>-</td>
+            <td>Bs. {{$tconsumos['0']->monto}}</td>
+        </tr>
+        <?php
+            $total = $tconsumos['0']->monto;
+            $subtotal += $total;
+            $last=$tconsumos['0'];
+        ?>
+        @foreach ($tconsumos->skip(1) as $tconsumo)
+            <tr>
+                <td><?php echo $tconsumo["descripcion"] ?></td>
+              @if ($last->cubos_fin < $notice->lectura->consumo)
+                <?php
+                    $montoVariable =$notice->lectura->consumo - $last->cubos_fin;
+                    $total = $montoVariable * $tconsumo['monto'];
+                    $subtotal += $total;
+                ?>
+              @else
+                <?php
+                    $montoVariable=0;
+                    $total = $montoVariable * $tconsumo['monto'];
+                    $subtotal += $total;
+                ?>
+              @endif
+                <td>{{$montoVariable}}</td>
+                <td>Bs. <?php echo number_format($tconsumo['monto'], 2) ?></td>
+                <td>Bs. <?php echo number_format($total, 2) ?></td>
+            </tr>
+            <?php$last=$tconsumo;?>
+        @endforeach
+        <tr>
+            <th colspan="3" class="text-right">SUBTOTAL</th>
+            <td>Bs. <?php echo number_format($subtotal, 2) ?></td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+          {{-- @foreach ($tmultas as $tmulta) --}}
+          <tr>
+              <td colspan="3" class="text-right"><?php echo $tmultas['0']->descripcion ?></td>
+              {{$date}}
+              @if($notice->fechaVencimiento > $date)
+                <?php
+                    $total = 0;//$tmultas['0']["monto"];
+                    $subtotal += $total;
+                ?>
+              @else
+                @if ($notice->pagado)
+                  <?php
+                      $total =$notice->multaMorosidad;
+                      $subtotal += $total;
+                      ?>
+                @else
+                  <?php
+                      $total = $tmultas['0']["monto"];
+                      $subtotal += $total;
+                  ?>
+                @endif
+                @endif
+              <td>Bs. {{$total}}</td>
+          </tr>
+
+          @php
+            $multas=App\Models\Multa::where('user_id', $notice->lectura->meter->user->id)->get();
+            $total= 0.00;
+          @endphp
+          <tr>
+              <td colspan="3" class="text-right"><?php echo $tmultas['1']["descripcion"] ?></td>
+              @if ($multas->count()>0)
+                  @foreach ($multas as $multa)
+                    @if ($multa->activo)
+                      <?php
+                          $total += $tmultas['1']["monto"];
+                          $subtotal += $total;
+                      ?>
+                    @endif
+                  @endforeach
+              @endif
+            <td>Bs. {{$total}}</td>
+          </tr>
+
+          {{-- @endforeach --}}
+        </tr>
+        <tr>
+          @foreach ($taportes as $taporte)
+            @if ($taporte->activo)
+              <tr>
+                  <td colspan="3" class="text-right"><?php echo $taporte["descripcion"] ?></td>
+                  <td>Bs.<?php echo number_format($taporte["monto"], 2) ?></td>
+              </tr>
+              <?php
+                  $total = $taporte["monto"];
+                  $subtotal += $total;
+              ?>
+            @endif
+          @endforeach
+        </tr>
+        <tr>
+            <th colspan="3" class="text-right">
+                <h4>TOTAL</h4>
+            </th>
+            <td>
+                <h4>Bs.<?php echo number_format($subtotal, 2) ?></h4>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<div class="box-footer mt20">
+    <div class="row">
+        <div class="col text-center">
+            <p class="h5">Fecha de Vencimiento: {{$notice->fechaVencimiento}}</p>
+            <p class="h5"><?php echo $mensajePie ?></p>
+        </div>
     </div>
 </div>

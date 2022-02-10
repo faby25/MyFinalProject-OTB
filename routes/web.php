@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AdminPostController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\HomeController;
@@ -26,6 +26,21 @@ use App\Http\Controllers\ReunionController;
 |--------------------------------------------------------------------------
 */
 
+//routes for reset Password
+// Route::get('register', [UserController::class, 'register'])->name('register');
+//
+// Route::get('login', [UserController::class, 'login'])->name('login');
+// Route::post('login', [UserController::class, 'loginValidate'])->name('login');
+//
+// Route::get('forgot-password', [UserController::class, 'forgotPassword'])->name('forgot-password');
+// Route::get('forgot-password/{token}', [UserController::class, 'forgotPasswordValidate']);
+// Route::post('forgot-password', [UserController::class, 'resetPassword'])->name('forgot-password');
+//
+// Route::put('reset-password', [UserController::class, 'updatePassword'])->name('reset-password');
+
+Route::get('perfil/actualizar',['as'=> 'perfil.edit', 'uses' => 'UsuarioController@edit']);
+Route::patch('perfil/actualizar',['as'=> 'perfil.update', 'uses' => 'UsuarioController@update']);
+
 // posts-Inicio
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/posts={post:slug}',[HomeController::class,'show']);
@@ -41,7 +56,7 @@ Route::get('/users={user:username}',function(User $user){
 
 require __DIR__.'/auth.php';
 
-Route::get('create-pdf-file/{$notice:id}', [PDFController::class, 'index']);
+Route::get('create-pdf-file', [PDFController::class, 'index']);
 
 //Dashboard
 Route::get('/dashboard', function () {
@@ -64,11 +79,19 @@ Route::get('posts.sinAtender',[PostController::class,'sinAtender']);
 Route::PATCH('posts.update.{post:slug}',[PostController::class,'update']);
 Route::DELETE('posts.delete.{post}',[PostController::class,'destroy']);
 
+Route::get('pendientes', function () {
+    return view('notices.pendientes');
+});
+Route::get('notice.show.last',function(){
+  return view('notices.last');
+});
+Route::get('notice.lastrecibo',function(){
+  return view('notices.lastrecibo');
+});
 Route::get('notices',[NoticeController::class,'index']);
-Route::post('notice',[NoticeController::class,'store']);
+// Route::post('notice.store',[NoticeController::class,'store']);
 Route::get('notice.show.{notice:id}',[NoticeController::class,'show']);
-// Route::get('notice.create.{lectura:id}',[NoticeController::class,'create']);
-Route::get('notice.edit.{notice:id}',[NoticeController::class,'edit']);
+// Route::get('notice.edit.pendientes',[NoticeController::class,'edit']);
 Route::PATCH('notice.update.{notice:id}',[NoticeController::class,'update']);
 
 //  TODO:clasificacion de meters
@@ -76,7 +99,7 @@ Route::get('/meters={meter:id}',function(Meter $meter){
   return view('notice.index',[
     'lecturas'=>$meter->lecturas,
   ]);
-})->name('meter');
+});//->name('meter');
 
 //vistas-ADMIN
 Route::resource('lectura',LecturaController::class);

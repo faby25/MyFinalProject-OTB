@@ -73,7 +73,7 @@ class LecturaController extends Controller
         $notice->pagado = 0;
         $notice->lectura_id = $lect->id;
         $notice->detalle = $request->detalle;
-        $notice->total = $consumo;
+        $notice->multaMorosidad = 0;
         $notice->created_at =Carbon::now();
         $notice->fechaVencimiento =  Carbon::now()->addWeeks(2);
 

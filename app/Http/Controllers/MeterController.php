@@ -66,9 +66,9 @@ class MeterController extends Controller
   {
       $user = User::findOrFail($id);
 
-      $datos['meters']=Meter::all();
+      // $datos['meters']=Meter::all();
       //return view('medidor.index',$datos);
-      return view('medidores.index', compact('user'),$datos);
+      return view('medidores.index', compact('user'));
 
       //$medidor=Medidor::findOrFail($id);
       //return view('medidor.edit', compact('medidor'));

@@ -54,7 +54,7 @@ class PostController extends Controller
       $post->slug = Str::slug($request->title);//$request->slug;
       $post->excerpt = Str::limit($request->body, 350);//$request->excerpt;
       if (isset($request['thumbnail'])) {
-        $post->thumbnail =request()->file('thumbnail')->store('thumbnail');
+        $post->thumbnail =request()->file('thumbnail')->store('app/public/thumbnail');
       }
       $post->save(); // Post::create($attributes);
       return redirect('posts')
@@ -91,27 +91,32 @@ class PostController extends Controller
         $datos = request()->except(['_token','_method']);
         $datos['slug'] = Str::slug($request->title);
         $datos['excerpt'] = Str::limit($request->body, 350);
-        if (isset($datos['thumbnail'])) {
-            // $datos['thumbnail']=request()->file('thumbnail')->save('../storage/app/public/thumbnail/'. {{$post->thumbnail}});
+        // if (isset($datos['thumbnail'])) {
+          // $file=Input::file('image');
+          // $file->move(public_path().'/'.$mytime.'.'.$file->getClientOriginalExtension());
+          //
+          // $product->product_photo=$mytime.'.'.$file->getClientOriginalExtension();
+
+        // $datos['thumbnail']=request()->file('thumbnail')->save('../storage/'. {{$post->thumbnail}});
             $datos['thumbnail']=request()->file('thumbnail')->store('thumbnail');
-        }
+        // }
         Post::where('id','=',$post->id)->update($datos);
         $post=Post::findOrFail($post->id);
         return redirect('posts')->with('success', 'El post fue actualizado exitosamente.');
     }
-    public function atendido(Request $request, Post $post)
-    {
-        $datos = request()->except(['_token','_method']);
-        if ($datos['atendido']==1) {
-          $datos['atendido']=0;
-        } else {
-          $datos['atendido']=1;
-        }
-
-        Post::where('id','=',$post->id)->update($datos);
-        $post=Post::findOrFail($post->id);
-        return redirect('posts.socios')->with('success', 'El post fue actualizado exitosamente.');
-    }
+    // public function atendido(7-6t $request, Post $post)
+    // {
+    //     // $datos = request()->except(['_token','_method']);
+    //     // if ($datos['atendido']==1) {
+    //     //   $datos['atendido']=0;
+    //     // } else {
+    //     //   $datos['atendido']=1;
+    //     // }
+    //
+    //     Post::where('id','=',$post->id)->update($datos);
+    //     $post=Post::findOrFail($post->id);
+    //     return redirect('posts.socios')->with('success', 'El post fue actualizado exitosamente.');
+    // }
     /**
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception

@@ -6,7 +6,10 @@
           <img src="./storage/{{$post->thumbnail}}" alt="Blog Post illustration" class="rounded  h-80 w-auto">
         </div> --}}
             <div class="items-center inline-flex">
-                <img src="../storage/{{$post->thumbnail}}" alt="Card Post illustration" class="rounded-xl h-80 w-auto ">
+              {{-- /storage/app/public/thumbnail/ --}}
+              <img src="../storage/{{$post->thumbnail}}" alt="Card Post illustration" class="rounded-xl h-80 w-auto ">
+
+                {{-- <img src="../storage/{{$post->thumbnail}}" alt="Card Post illustration" class="rounded-xl h-80 w-auto "> --}}
             </div>
 
         <div class="flex-1 flex-col justify-between">
