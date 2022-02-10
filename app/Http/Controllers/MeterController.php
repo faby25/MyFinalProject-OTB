@@ -15,8 +15,10 @@ class MeterController extends Controller
    */
   public function index()
   {
-      $datos=Meter::all();
-      return view('medidores.index',$datos);
+      $meters=Meter::all();
+      return view('medidores.index', compact('meters'))
+          ->with('i', (request()->input('page', 1) - 1) * $meters->perPage());
+      // return view('medidores.index',$datos);
   }
 
   /**

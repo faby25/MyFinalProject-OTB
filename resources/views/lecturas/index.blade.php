@@ -4,7 +4,9 @@
             {{ __('Lista de Medidores ') }}
         </h2>
     </x-slot>
-
+    @php
+    $meters = App\Models\Meter::all();
+    @endphp
     <div class="card">
         <div class="card-body">
             <table id="tconsumo" class="table table-hover table-striped">

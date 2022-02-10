@@ -22,12 +22,13 @@ class LecturaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   //$lecturas = Lectura::paginate();
-        $datos=Meter::all();
-        // $datos=Meter::all();
-        return view('lecturas.index',$datos);
-        // return view('lectura.index', compact('lecturas'))
-        //     ->with('i', (request()->input('page', 1) - 1) * $lecturas->perPage());
+    {
+        $lecturas = Lectura::paginate();
+        // $datos['meters']=Meter::all();
+        // $meters=Meter::all();
+        // return view('lecturas.index',$datos);
+        return view('lecturas.index', compact('lecturas'))
+            ->with('i', (request()->input('page', 1) - 1) * $lecturas->perPage());
     }
     /**
      * Show the form for creating a new resource.
