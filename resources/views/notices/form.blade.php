@@ -8,27 +8,20 @@ $tmultas=App\Models\TMulta::all();
 @endphp
 
 <?php
-$socio = "Luis Cabrera Benito";
-$remitente = "Luis Cabrera Benito";
 $mensajePie = "OTB-SUCA";
-$numero = 1;
-$descuento = 0;
-$porcentajeImpuestos = 16;
 $tarifas = [
-  [
-      "precio" => 15,
+  [   "precio" => 15,
       "descripcion" => "Tarifa Basica",
       "cantidad" => 1,
   ],
-  [
-      "precio" => 10,
+  [   "precio" => 10,
       "descripcion" => "Tarifa for cubos de exeso",
       "cantidad" => 2,
   ],
 ];
 $fecha = date("Y-m-d");
 ?>
-@php
+{{-- @php
 $meters = App\Models\Meter::where('user_id', auth()->id())->get();
 $notices=App\Models\Notice::all();
 $last=$notices[0];
@@ -40,12 +33,11 @@ $last=$notices[0];
             $last=$notice;
           @endphp
       @endif
-@endforeach
-
+    @endforeach
 @endforeach
 @php
   $notice=$last;
-@endphp
+@endphp --}}
 
 
 

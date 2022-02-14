@@ -19,6 +19,23 @@
     <div class="card">
 
         <div class="card-body">
+          @php
+          $meters = App\Models\Meter::where('user_id', auth()->id())->get();
+          $notices=App\Models\Notice::all();
+          $last=$notices[0];
+          @endphp
+          @foreach ($meters as $meter)
+              @foreach ($notices as $notice)
+                @if ($notice->lectura->meter_id == $meter->id)
+                    @php
+                      $last=$notice;
+                    @endphp
+                @endif
+              @endforeach
+          @endforeach
+          @php
+            $notice=$last;
+          @endphp
             @include('notices.form')
             <div class="float-right">
                 <a href="{{ url('create-pdf-file') }}" class="btn btn-primary">Imprimir</a>

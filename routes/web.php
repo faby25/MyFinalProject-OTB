@@ -56,7 +56,8 @@ Route::get('/users={user:username}',function(User $user){
 
 require __DIR__.'/auth.php';
 
-Route::get('create-pdf-file', [PDFController::class, 'index']);
+Route::get('create-pdf-file.{notice:id}', [PDFController::class, 'index']);
+// Route::get('create-pdf-file', [PDFController::class, 'index']);
 
 //Dashboard
 Route::get('/dashboard', function () {
@@ -103,10 +104,6 @@ Route::get('/meters={meter:id}',function(Meter $meter){
 
 //vistas-ADMIN
 Route::resource('lectura',LecturaController::class);
-Route::get('lectura.create',[LecturaController::class,'create']);
-Route::get('lectura.edit.{lectura:id}',[LecturaController::class,'edit']);
-Route::PATCH('lectura.update.{lectura:id}',[LecturaController::class,'update']);
-Route::DELETE('lectura.delete.{lectura}',[LecturaController::class,'destroy']);
 
 Route::get('lectura.edit.{meter:id}',[LecturaController::class,'create']);
 Route::post('lectura',[LecturaController::class,'store']);

@@ -31,7 +31,6 @@
                     @endphp
                 @endif
           @endforeach
-
           @endforeach
           @php
             $notice=$last;

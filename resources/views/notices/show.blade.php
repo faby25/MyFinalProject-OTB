@@ -22,7 +22,9 @@
           @include('notices.recibo')
 
             <div class="float-right">
-                <a href="{{ url('create-pdf-file', $notice->id) }}" class="btn btn-primary">Imprimir</a>
+              <a class="btn btn-sm btn-primary " href="create-pdf-file.{{$notice->id}}"><i class="fa fa-fw fa-eye"></i>Imprimir</a>
+
+                {{-- <a href="{{ url('create-pdf-file', $notice->id) }}" class="btn btn-primary">Imprimir</a> --}}
                 <a href="notices" class="btn btn-primary">Volver</a>
             </div>
 

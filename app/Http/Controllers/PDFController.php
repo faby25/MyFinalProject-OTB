@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use PDF;
-use App\Models\Notice;
 
+use App\Models\Notice;
+use App\Models\Meter;
+use Illuminate\Support\Str;
 class PDFController extends Controller
 {
   /**
@@ -13,20 +14,30 @@ class PDFController extends Controller
        *
        * @return \Illuminate\Http\Response
        */
-      public function index(Request $request)
+      public function index(Notice $notice)
       {
-          // $data = [
-          //     'title' => 'Detalle de Resibo',
-          //     'date' => date('m/d/Y')
-          // ];
-          $notice=Notice::first();
-
-
-            $pdf = PDF::loadView('notices.form');
-          // $pdf = PDF::loadView('post-first-card', $data);
+          $pdf = PDF::loadView('notices.form', compact('notice'));
+          // $pdf = PDF::loadView('post-first-card', $notice);
           return $pdf->download('tutsmake.pdf');
       }
 
+      public function last(Request $request)
+      {
+          $meters = Meter::where('user_id', auth()->id())->get();
+          $notices=Notice::all();
+          $last=$notices[0];
+          foreach ($meters as $meter){
+              foreach ($notices as $notice){
+                if ($notice->lectura->meter_id == $meter->id){
+                      $last=$notice;
+                }
+              }
+            }
+            $notice=$last;
+            $pdf = PDF::loadView('notices.form', compact('notice'));
+          // $pdf = PDF::loadView('post-first-card', $notice);
+          return $pdf->download('tutsmake.pdf');
+      }
       // public function imprimir(){
       //      $pdf = \PDF::loadView('ejemplo');
       //      return $pdf->download('ejemplo.pdf');
